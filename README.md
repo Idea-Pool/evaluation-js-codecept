@@ -1,27 +1,21 @@
-> To use this template, clone a new repository based on this and
-> 1. Fill out this README.md, guided by the tasks below
-> 1. Implement the test cases in the choosen framework which are listed in [TESTCASES.md](TESTCASES.md)
-> 1. Delete this quotation
-> 1. Delete tasks
+# evaluation-codecept
 
-# evaluation-template
-
-- [ ] Update name to evaluation-(framework name) here and in pacakge.json too
-
-This is a template repository to create test-ware for evaluating certain (JS) test automation tools.
-
-- [ ] Update description to describe purpose of this repository, e.g. This is a test-ware for evaluation FRAMEWORK test automation tool.
+This is a test-ware for evaluation of CodeceptJS test automation tool.
 
 ## Prerequisites
 
 1. Node.js LTS
-1. [ ] Add additional prerequisites if necessary
+1. Google Chrome
 
-## Framework used
+## Framework(s) used
 
-- [ ] Add name of the framework
-- [ ] Add URL to the homepage and API docs of the framework
-- [ ] Add brief description of the framework
+- Name: CodeceptJS
+- Homepage: https://codecept.io/
+- Description: SuperCharged End 2 End Testing with WebDriver & Puppeteer
+
+- Name: Puppeteer
+- Homepage: https://github.com/puppeteer/puppeteer
+- Description: Puppeteer is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol.
 
 ## Test cases
 
@@ -41,4 +35,8 @@ npm install
 npm test
 ```
 
-- [ ] Add additional instructions to run tests
+## Notes
+
+1. Easy install, with the tour it is easy to start
+2. Might be some problem with console reports, if step contains new line
+3. Issue with checking link text: Get Started (expected) vs GET STARTED (actual)
