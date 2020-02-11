@@ -1,5 +1,7 @@
 # evaluation-codecept
 
+**NOTE THAT THIS EVALUATION IS NOT READY YET, IT IS STILL WIP!!!**
+
 This is a test-ware for evaluation of CodeceptJS test automation tool.
 
 ## Prerequisites
