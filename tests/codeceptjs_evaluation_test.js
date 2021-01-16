@@ -1,5 +1,4 @@
 const assert = require("assert");
-
 Feature("CodeceptJS Evaluation");
 
 xScenario("TC-1 - Checking landing pages elements", (I) => {
@@ -36,13 +35,12 @@ xScenario("TC-2 - Checking search field on landing page", async (I) => {
     I.see("Directive", "h1");
 });
 
-xScenario("TC-3 - Checking form elements", async (I) => {
+Scenario("TC-3 - Checking form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/");
     I.seeInTitle("Forms · Bootstrap");
-    //    1. **And** The readonly input should not be in the viewport
+    I.assertFalse(await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]"));
     I.scrollTo("input.form-control[placeholder*=\"Readonly\"]");
-    //      1. ** Then ** The readonly input should be in the viewport
-
+    I.assertTrue(await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]"));
     const placeholder = await I.grabAttributeFrom("input.form-control[placeholder*=\"Readonly\"", "placeholder");
     assert.equal(placeholder, "Readonly input here...");
     I.click("input.form-control[placeholder*=\"Readonly\"]");
@@ -50,8 +48,10 @@ xScenario("TC-3 - Checking form elements", async (I) => {
     I.seeTextEquals("", "input.form-control[placeholder*=\"Readonly\"]");
 });
 
-xScenario("TC-4 - Interaction with checkbox form elements", (I) => {
+xScenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
+    I.seeHaveClass("[id=\"defaultCheck2\"]", "disabled");
+    I.dontSeeHaveClass("[id=\"defaultCheck1\"]", "disabled");
     //  **Then** The default checkbox should be enabled
     //  **And** The disabled checkbox should be disabled
     I.dontSeeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
@@ -88,4 +88,4 @@ xScenario("TC-6 - Checking button form elements", (I) => {
     // 1. **When** The option "2" is selected in example select
     // 1. **Then** The selected option in example select should be "2"
     // 1. **And** Thu number of options in example select should be 5
-})
+});
