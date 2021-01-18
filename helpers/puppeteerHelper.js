@@ -6,6 +6,11 @@ class PuppeteerHelper extends Helper {
         const input = await page.$(locator);
         return input.isIntersectingViewport(input);
     }
+
+    async seeDisabledAttribute(locator){
+        const page = this.helpers["Puppeteer"].page;
+        return page.$eval(locator, item => item.disabled);
+    }
 }
 
 module.exports = PuppeteerHelper;

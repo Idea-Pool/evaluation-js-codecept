@@ -35,7 +35,7 @@ xScenario("TC-2 - Checking search field on landing page", async (I) => {
     I.see("Directive", "h1");
 });
 
-Scenario("TC-3 - Checking form elements", async (I) => {
+xScenario("TC-3 - Checking form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/");
     I.seeInTitle("Forms · Bootstrap");
     I.assertFalse(await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]"));
@@ -52,22 +52,20 @@ xScenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
     I.seeHaveClass("[id=\"defaultCheck2\"]", "disabled");
     I.dontSeeHaveClass("[id=\"defaultCheck1\"]", "disabled");
-    //  **Then** The default checkbox should be enabled
-    //  **And** The disabled checkbox should be disabled
     I.dontSeeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
     I.click("input[id=\"defaultCheck1\"]");
     I.seeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
 });
 
-xScenario("TC-5 - Interaction with radio form elements", (I) => {
+xScenario("TC-5 - Interaction with radio form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
-    // 1. **Then** The default radio should be enabled
-    // 1. **And** The disabled radion should be disabled
-    // 1. **And** The default radio should be selected
-    // 1. **And** The second default radio should not be selected
+    I.assertFalse(await I.seeDisabledAttribute("[id=\"exampleRadios1\"]"));
+    I.assertTrue(await I.seeDisabledAttribute("[id=\"exampleRadios3\"]"));
+    I.seeCheckboxIsChecked("[id=\"exampleRadios1\"]");
+    I.dontSeeCheckboxIsChecked("[id=\"exampleRadios2\"]");
     I.click("input[id=\"exampleRadios2\"]");
-    // 1. **Then** The default radio should be not selected
-    // 1. **And** The second default radio should be selected
+    I.dontSeeCheckboxIsChecked("[id=\"exampleRadios1\"]");
+    I.seeCheckboxIsChecked("[id=\"exampleRadios2\"]");
 });
 
 xScenario("TC-6 - Checking button form elements", (I) => {
@@ -78,7 +76,7 @@ xScenario("TC-6 - Checking button form elements", (I) => {
     // 1. **Then** The active primary link button should not be disabled
 });
 
-xScenario("TC-6 - Checking button form elements", (I) => {
+xScenario("TC-7 - Checking select form elements", (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#form-controls");
     I.see("#exampleFormControlSelect1");
     //1. **And** The example multiple select should be a multiple select
