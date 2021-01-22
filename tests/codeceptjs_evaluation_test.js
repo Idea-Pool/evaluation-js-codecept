@@ -68,12 +68,12 @@ xScenario("TC-5 - Interaction with radio form elements", async (I) => {
     I.seeCheckboxIsChecked("[id=\"exampleRadios2\"]");
 });
 
-xScenario("TC-6 - Checking button form elements", (I) => {
+Scenario("TC-6 - Checking button form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
-    // 1. **Then** There should be a button with text "Primary button"
-    // 1. **And** The primary button should be disabled
+    I.seeElement("//button[.=\"Primary button\"]");
+    I.assertFalse(await I.seeDisabledAttribute("//button[.=\"Primary button\"]"));
     I.pressKey("PageUp");
-    // 1. **Then** The active primary link button should not be disabled
+    I.assertTrue(await I.seeDisabledAttribute(".btn-primary.active"));
 });
 
 xScenario("TC-7 - Checking select form elements", (I) => {
