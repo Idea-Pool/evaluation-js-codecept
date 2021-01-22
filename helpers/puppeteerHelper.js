@@ -7,9 +7,24 @@ class PuppeteerHelper extends Helper {
         return input.isIntersectingViewport(input);
     }
 
-    async seeDisabledAttribute(locator){
+    async seeDisabledAttribute(locator, type = "css") {
         const page = this.helpers["Puppeteer"].page;
-        return page.$eval(locator, item => item.disabled);
+        if (type === "css") {
+            return page.$eval(locator, item => item.disabled);
+        } else {
+            const button = (await page.$x(locator))[0];
+            return page.evaluate(button => button.disabled, button);
+        }
+    }
+
+    async seeMultiSelect(locator) {
+        const page = this.helpers["Puppeteer"].page;
+        return page.$eval(locator, item => item.multiple);
+    }
+
+    async seeSelectedOption(locator){
+        const page = this.helpers["Puppeteer"].page;
+        return page.$eval(locator , selected => selected.value);
     }
 }
 

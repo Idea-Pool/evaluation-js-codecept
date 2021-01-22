@@ -71,16 +71,19 @@ xScenario("TC-5 - Interaction with radio form elements", async (I) => {
 Scenario("TC-6 - Checking button form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
     I.seeElement("//button[.=\"Primary button\"]");
-    I.assertFalse(await I.seeDisabledAttribute("//button[.=\"Primary button\"]"));
+    I.assertTrue(await I.seeDisabledAttribute("//button[.=\"Primary button\"]", "XPATH"));
     I.pressKey("PageUp");
-    I.assertTrue(await I.seeDisabledAttribute(".btn-primary.active"));
+    I.assertFalse(await I.seeDisabledAttribute(".btn-primary.active"));
 });
 
-xScenario("TC-7 - Checking select form elements", (I) => {
+Scenario("TC-7 - Checking select form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#form-controls");
-    I.see("#exampleFormControlSelect1");
-    //1. **And** The example multiple select should be a multiple select
-    // 1. **And** The selected option in example select should be "1"
+    I.assertTrue(await I.seeInViewport("#exampleFormControlSelect1"));
+    I.assertTrue(await I.seeMultiSelect("#exampleFormControlSelect2"));
+    
+    const selectedOption = await I.seeSelectedOption("#exampleFormControlSelect1");
+    assert.equal(selectedOption, 1);
+
     // 1. **And** there should not be option like "hello" in example select
     // 1. **And** there should be option like "2" in example select
     // 1. **When** The option "2" is selected in example select
