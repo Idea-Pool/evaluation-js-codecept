@@ -76,17 +76,20 @@ Scenario("TC-6 - Checking button form elements", async (I) => {
     I.assertFalse(await I.seeDisabledAttribute(".btn-primary.active"));
 });
 
-Scenario("TC-7 - Checking select form elements", async (I) => {
+xScenario("TC-7 - Checking select form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#form-controls");
     I.assertTrue(await I.seeInViewport("#exampleFormControlSelect1"));
     I.assertTrue(await I.seeMultiSelect("#exampleFormControlSelect2"));
     
     const selectedOption = await I.seeSelectedOption("#exampleFormControlSelect1");
     assert.equal(selectedOption, 1);
+    I.dontSee("hello","#exampleFormControlSelect1 option");
+    I.see("2", "#exampleFormControlSelect1 option");
+    I.selectOption("#exampleFormControlSelect1", "2");
 
-    // 1. **And** there should not be option like "hello" in example select
-    // 1. **And** there should be option like "2" in example select
-    // 1. **When** The option "2" is selected in example select
-    // 1. **Then** The selected option in example select should be "2"
-    // 1. **And** Thu number of options in example select should be 5
+    const selectedOption2 = await I.seeSelectedOption("#exampleFormControlSelect1");
+    assert.equal(selectedOption2, 2);
+
+    const number = await I.seeNumberOfElements("#exampleFormControlSelect1 option");
+    assert.equal(number, 5);
 });
