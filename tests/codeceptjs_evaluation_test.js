@@ -1,7 +1,7 @@
 const assert = require("assert");
 Feature("CodeceptJS Evaluation");
 
-xScenario("TC-1 - Checking landing pages elements", (I) => {
+Scenario("TC-1 - Checking landing pages elements", (I) => {
     I.amOnPage("https://angular.io");
     I.seeElement(".mat-toolbar-row a.nav-link > img");
     I.seeElement(".hero-logo > img");
@@ -14,7 +14,7 @@ xScenario("TC-1 - Checking landing pages elements", (I) => {
     I.seeInTitle("Introduction to the Angular Docs");
 });
 
-xScenario("TC-2 - Checking search field on landing page", async (I) => {
+Scenario("TC-2 - Checking search field on landing page", async (I) => {
     I.amOnPage("https://angular.io");
 
     const navBarSearchField = ".mat-toolbar-row aio-search-box > input[type=search]";
@@ -35,12 +35,12 @@ xScenario("TC-2 - Checking search field on landing page", async (I) => {
     I.see("Directive", "h1");
 });
 
-xScenario("TC-3 - Checking form elements", async (I) => {
+Scenario("TC-3 - Checking form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/");
     I.seeInTitle("Forms · Bootstrap");
-    I.assertFalse(await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]"));
+    await I.dontSeeInViewport("input.form-control[placeholder*=\"Readonly\"]");
     I.scrollTo("input.form-control[placeholder*=\"Readonly\"]");
-    I.assertTrue(await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]"));
+    await I.seeInViewport("input.form-control[placeholder*=\"Readonly\"]");
     const placeholder = await I.grabAttributeFrom("input.form-control[placeholder*=\"Readonly\"", "placeholder");
     assert.equal(placeholder, "Readonly input here...");
     I.click("input.form-control[placeholder*=\"Readonly\"]");
@@ -48,7 +48,7 @@ xScenario("TC-3 - Checking form elements", async (I) => {
     I.seeTextEquals("", "input.form-control[placeholder*=\"Readonly\"]");
 });
 
-xScenario("TC-4 - Interaction with checkbox form elements", async (I) => {
+Scenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
     I.seeHaveClass("[id=\"defaultCheck2\"]", "disabled");
     I.dontSeeHaveClass("[id=\"defaultCheck1\"]", "disabled");
@@ -57,10 +57,10 @@ xScenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.seeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
 });
 
-xScenario("TC-5 - Interaction with radio form elements", async (I) => {
+Scenario("TC-5 - Interaction with radio form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
-    I.assertFalse(await I.seeDisabledAttribute("[id=\"exampleRadios1\"]"));
-    I.assertTrue(await I.seeDisabledAttribute("[id=\"exampleRadios3\"]"));
+    await I.dontSeeDisabledAttribute("[id=\"exampleRadios1\"]");
+    await I.seeDisabledAttribute("[id=\"exampleRadios3\"]");
     I.seeCheckboxIsChecked("[id=\"exampleRadios1\"]");
     I.dontSeeCheckboxIsChecked("[id=\"exampleRadios2\"]");
     I.click("input[id=\"exampleRadios2\"]");
@@ -71,15 +71,15 @@ xScenario("TC-5 - Interaction with radio form elements", async (I) => {
 Scenario("TC-6 - Checking button form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
     I.seeElement("//button[.=\"Primary button\"]");
-    I.assertTrue(await I.seeDisabledAttribute("//button[.=\"Primary button\"]", "XPATH"));
+    await I.seeDisabledAttribute("//button[.=\"Primary button\"]", "XPATH");
     I.pressKey("PageUp");
-    I.assertFalse(await I.seeDisabledAttribute(".btn-primary.active"));
+    await I.dontSeeDisabledAttribute("a.btn-primary[aria-pressed]");
 });
 
-xScenario("TC-7 - Checking select form elements", async (I) => {
+Scenario("TC-7 - Checking select form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#form-controls");
-    I.assertTrue(await I.seeInViewport("#exampleFormControlSelect1"));
-    I.assertTrue(await I.seeMultiSelect("#exampleFormControlSelect2"));
+    await I.seeInViewport("#exampleFormControlSelect1");
+    await I.seeMultiSelect("#exampleFormControlSelect2");
     
     const selectedOption = await I.seeSelectedOption("#exampleFormControlSelect1");
     assert.equal(selectedOption, 1);
