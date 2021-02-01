@@ -1,13 +1,11 @@
 const assert = require("assert");
 Feature("CodeceptJS Evaluation");
 
-Scenario("TC-1 - Checking landing pages elements", (I) => {
+Scenario("TC-1 - Checking landing pages elements", (I, angularPage) => {
     I.amOnPage("https://angular.io");
-    I.seeElement(".mat-toolbar-row a.nav-link > img");
+    I.seeElement(angularPage["Angular logo"]);
     I.seeElement(".hero-logo > img");
-    // Note 2.
     I.see("The modern web\ndeveloper's platform", "div.hero-headline");
-    // Node 3.
     I.see("GET STARTED", "#intro a");
     I.click("Get Started", "#intro a");
     I.seeInCurrentUrl("https://angular.io/docs");
@@ -50,8 +48,8 @@ Scenario("TC-3 - Checking form elements", async (I) => {
 
 Scenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
-    I.seeHaveClass("[id=\"defaultCheck2\"]", "disabled");
-    I.dontSeeHaveClass("[id=\"defaultCheck1\"]", "disabled");
+    await I.seeDisabledClass("[id=\"defaultCheck2\"]");
+    await I.dontSeeDisabledClass("[id=\"defaultCheck1\"]");
     I.dontSeeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
     I.click("input[id=\"defaultCheck1\"]");
     I.seeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
@@ -71,9 +69,9 @@ Scenario("TC-5 - Interaction with radio form elements", async (I) => {
 Scenario("TC-6 - Checking button form elements", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
     I.seeElement("//button[.=\"Primary button\"]");
-    await I.seeDisabledAttribute("//button[.=\"Primary button\"]", "XPATH");
+    await I.seeDisabledClass("//button[.=\"Primary button\"]");
     I.pressKey("PageUp");
-    await I.dontSeeDisabledAttribute("a.btn-primary[aria-pressed]");
+    await I.dontSeeDisabledClass("a.btn-primary[aria-pressed]");
 });
 
 Scenario("TC-7 - Checking select form elements", async (I) => {

@@ -21,7 +21,8 @@ exports.config = {
         }
     },
     include: {
-        I: "./steps_file.js"
+        I: "./steps_file.js",
+        angularPage: "./pages/angular.js"
     },
     bootstrap: null,
     mocha: {},
