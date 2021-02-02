@@ -4,8 +4,12 @@
   "description": "This is a test-ware for evaluation of CodeceptJS test automation tool.",
   "main": "-",
   "scripts": {
-    "test": "codeceptjs run --steps",
-    "lint": "eslint tests --fix"
+    "test": "codeceptjs run --steps --plugins allure",
+    "test-component": "codeceptjs run --grep @angularPage --plugins allure",
+    "test-dev": "codeceptjs run --grep @current",
+    "test-parallel": "codeceptjs run-workers 2 --plugins allure",
+    "lint": "eslint tests --fix",
+    "report": "allure serve output"
   },
   "repository": {
     "type": "git",
@@ -26,6 +30,7 @@
   "homepage": "https://github.com/szikszail/evaluation-codecept#readme",
   "dependencies": {
     "@codeceptjs/helper": "^1.0.2",
+    "allure-commandline": "^2.13.8",
     "codeceptjs": "^2.6.11",
     "codeceptjs-chai": "^2.2.0",
     "eslint": "^6.8.0",

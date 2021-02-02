@@ -1,18 +1,17 @@
 const assert = require("assert");
 Feature("CodeceptJS Evaluation");
 
-Scenario("TC-1 - Checking landing pages elements", (I, angularPage) => {
+Scenario("TC-1 - Checking landing pages elements @angularPage", (I, angularPage) => {
     I.amOnPage("https://angular.io");
-    I.seeElement(angularPage["Angular logo"]);
-    I.seeElement(".hero-logo > img");
-    I.see("The modern web\ndeveloper's platform", "div.hero-headline");
-    I.see("GET STARTED", "#intro a");
-    I.click("Get Started", "#intro a");
+    I.seeElement(angularPage.angularLogoInNavbar);
+    I.seeElement(angularPage.angularLogoInHero);
+    I.see("The modern web\ndeveloper's platform", angularPage.heroText);
+    angularPage.validateAndClick();
     I.seeInCurrentUrl("https://angular.io/docs");
     I.seeInTitle("Introduction to the Angular Docs");
 });
 
-Scenario("TC-2 - Checking search field on landing page", async (I) => {
+Scenario("TC-2 - Checking search field on landing page @angularPage", async (I) => {
     I.amOnPage("https://angular.io");
 
     const navBarSearchField = ".mat-toolbar-row aio-search-box > input[type=search]";
@@ -33,7 +32,7 @@ Scenario("TC-2 - Checking search field on landing page", async (I) => {
     I.see("Directive", "h1");
 });
 
-Scenario("TC-3 - Checking form elements", async (I) => {
+Scenario("TC-3 - Checking form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/");
     I.seeInTitle("Forms · Bootstrap");
     await I.dontSeeInViewport("input.form-control[placeholder*=\"Readonly\"]");
@@ -46,7 +45,7 @@ Scenario("TC-3 - Checking form elements", async (I) => {
     I.seeTextEquals("", "input.form-control[placeholder*=\"Readonly\"]");
 });
 
-Scenario("TC-4 - Interaction with checkbox form elements", async (I) => {
+Scenario("TC-4 - Interaction with checkbox form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
     await I.seeDisabledClass("[id=\"defaultCheck2\"]");
     await I.dontSeeDisabledClass("[id=\"defaultCheck1\"]");
@@ -55,7 +54,7 @@ Scenario("TC-4 - Interaction with checkbox form elements", async (I) => {
     I.seeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
 });
 
-Scenario("TC-5 - Interaction with radio form elements", async (I) => {
+Scenario("TC-5 - Interaction with radio form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
     await I.dontSeeDisabledAttribute("[id=\"exampleRadios1\"]");
     await I.seeDisabledAttribute("[id=\"exampleRadios3\"]");
@@ -66,7 +65,7 @@ Scenario("TC-5 - Interaction with radio form elements", async (I) => {
     I.seeCheckboxIsChecked("[id=\"exampleRadios2\"]");
 });
 
-Scenario("TC-6 - Checking button form elements", async (I) => {
+Scenario("TC-6 - Checking button form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
     I.seeElement("//button[.=\"Primary button\"]");
     await I.seeDisabledClass("//button[.=\"Primary button\"]");
@@ -74,7 +73,7 @@ Scenario("TC-6 - Checking button form elements", async (I) => {
     await I.dontSeeDisabledClass("a.btn-primary[aria-pressed]");
 });
 
-Scenario("TC-7 - Checking select form elements", async (I) => {
+Scenario("TC-7 - Checking select form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#form-controls");
     await I.seeInViewport("#exampleFormControlSelect1");
     await I.seeMultiSelect("#exampleFormControlSelect2");

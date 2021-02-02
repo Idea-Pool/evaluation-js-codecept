@@ -33,6 +33,9 @@ exports.config = {
         },
         screenshotOnFail: {
             enabled: true
+        },
+        allure: {
+            enabled: true
         }
     }
 };
