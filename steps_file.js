@@ -1,10 +1,18 @@
+const assert = require("assert");
+const { I } = inject();
 // in this file you can append custom step methods to 'I' object
 
-module.exports = function() {
-  return actor({
+module.exports = function () {
+    return actor({
+        seeElementDisabled: async (locator) =>{
+            const disabled = await I.grabAttributeFrom(locator, "disabled");
+            assert.equal(disabled, true);
+        },
 
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
+        dontSeeElementDisabled: async (locator) =>{
+            const disabled = await I.grabAttributeFrom(locator, "disabled");
+            assert.equal(disabled, null);
+        }
 
-  });
-}
+    });
+};
