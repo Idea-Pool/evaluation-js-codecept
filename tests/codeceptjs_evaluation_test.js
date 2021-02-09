@@ -47,8 +47,8 @@ Scenario("TC-3 - Checking form elements @getBootstrap", async (I) => {
 
 Scenario("TC-4 - Interaction with checkbox form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/forms/#checkboxes-and-radios/");
-    await I.seeDisabledClass("[id=\"defaultCheck2\"]");
-    await I.dontSeeDisabledClass("[id=\"defaultCheck1\"]");
+    await I.seeElementDisabled("[id=\"defaultCheck2\"]");
+    await I.dontSeeElementDisabled("[id=\"defaultCheck1\"]");
     I.dontSeeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
     I.click("input[id=\"defaultCheck1\"]");
     I.seeCheckboxIsChecked("input[id=\"defaultCheck1\"]");
@@ -68,9 +68,9 @@ Scenario("TC-5 - Interaction with radio form elements @getBootstrap", async (I) 
 Scenario("TC-6 - Checking button form elements @getBootstrap", async (I) => {
     I.amOnPage("https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state");
     I.seeElement("//button[.=\"Primary button\"]");
-    await I.seeDisabledClass("//button[.=\"Primary button\"]");
+    await I.seeElementDisabled("//button[.=\"Primary button\"]");
     I.pressKey("PageUp");
-    await I.dontSeeDisabledClass("a.btn-primary[aria-pressed]");
+    await I.dontSeeElementDisabled("a.btn-primary[aria-pressed]");
 });
 
 Scenario("TC-7 - Checking select form elements @getBootstrap", async (I) => {
@@ -78,15 +78,15 @@ Scenario("TC-7 - Checking select form elements @getBootstrap", async (I) => {
     await I.seeInViewport("#exampleFormControlSelect1");
     await I.seeMultiSelect("#exampleFormControlSelect2");
     
-    const selectedOption = await I.seeSelectedOption("#exampleFormControlSelect1");
+    const selectedOption = await I.grabSelectedOption("#exampleFormControlSelect1");
     assert.equal(selectedOption, 1);
     I.dontSee("hello","#exampleFormControlSelect1 option");
     I.see("2", "#exampleFormControlSelect1 option");
     I.selectOption("#exampleFormControlSelect1", "2");
 
-    const selectedOption2 = await I.seeSelectedOption("#exampleFormControlSelect1");
+    const selectedOption2 = await I.grabSelectedOption("#exampleFormControlSelect1");
     assert.equal(selectedOption2, 2);
 
-    const number = await I.seeNumberOfElements("#exampleFormControlSelect1 option");
+    const number = await I.grabNumberOfElements("#exampleFormControlSelect1 option");
     assert.equal(number, 5);
 });
