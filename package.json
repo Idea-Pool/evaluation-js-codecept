@@ -31,7 +31,7 @@
   "dependencies": {
     "@codeceptjs/helper": "^1.0.2",
     "allure-commandline": "^2.13.8",
-    "codeceptjs": "^3.4.1",
+    "codeceptjs": "^3.7.5",
     "codeceptjs-chai": "^2.2.0",
     "eslint": "^9.31.0",
     "eslint-plugin-codeceptjs": "^1.2.0",
